@@ -8,6 +8,23 @@ d3.json(queryUrl, function(data) {
   createFeatures(data.features);
 });
 
+ // Color
+function getColor(magnitude) {
+  if (magnitude > 5) {
+      return '#CC0000'
+  } else if (magnitude > 4) {
+      return '#FF6900'
+  } else if (magnitude > 3) {
+      return '#FFCC00'
+  } else if (magnitude > 2) {
+      return '#CCFF33'
+  } else if (magnitude > 1) {
+      return 'green'
+  } else {
+      return '#66FFCC'
+  }
+}
+
 function createFeatures(earthquakeData) {
 
   // Define a function we want to run once for each feature in the features array
@@ -33,25 +50,9 @@ function createFeatures(earthquakeData) {
     }
   })
 
-    // Color
-    function getColor(magnitude) {
-      if (magnitude > 5) {
-          return '#CC0000'
-      } else if (magnitude > 4) {
-          return '#FF6900'
-      } else if (magnitude > 3) {
-          return '#FFCC00'
-      } else if (magnitude > 2) {
-          return '#CCFF33'
-      } else if (magnitude > 1) {
-          return 'green'
-      } else {
-          return '#66FFCC'
-      }
-  };
+// Sending our earthquakes layer to the createMap function
+createMap(earthquakes);
 
-  // Sending our earthquakes layer to the createMap function
-  createMap(earthquakes);
 }
 
 
@@ -128,7 +129,7 @@ function createMap(earthquakes) {
   // Create legend
   var legend = L.control({position: 'bottomright'});
 
-  legend.onAdd = function (myMap) {
+  legend.onAdd = function () {
 
     var div = L.DomUtil.create('div', 'info legend'),
               grades = [0, 1, 2, 3, 4, 5],
@@ -144,21 +145,6 @@ function createMap(earthquakes) {
   };
 
   legend.addTo(myMap);
-
-  // Color
-  function getColor(magnitude) {
-    if (magnitude > 5) {
-        return '#CC0000'
-    } else if (magnitude > 4) {
-        return '#FF6900'
-    } else if (magnitude > 3) {
-        return '#FFCC00'
-    } else if (magnitude > 2) {
-        return '#CCFF33'
-    } else if (magnitude > 1) {
-        return 'green'
-    } else {
-        return '#66FFCC'
-    }
-  }
 }
+
+  
